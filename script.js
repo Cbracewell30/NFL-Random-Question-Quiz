@@ -20,6 +20,12 @@ button4HTML.addEventListener("click", showresult);
 
 var score = 0
 
+let scoreLocal = localStorage.getItem("highScore") || "None";
+let nameLocal = localStorage.getItem("Name")|| "Glad you decided to play";
+
+
+document.getElementById("userHighScore").textContent = `Name :${nameLocal} Score:${scoreLocal}`
+
 
 // Answer result function
 function showresult() {
@@ -40,7 +46,7 @@ function showresult() {
     }
     else {
         alert('End of Quiz!');
-        clearInterval(timeObj);
+    
         endQuiz();
     };
 
@@ -49,6 +55,7 @@ function showresult() {
 // End quiz and highscore function
 
 var endQuiz = function () {
+    clearInterval(timeObj);
     var name = "";
     // While loop to not allow bank or null names
     while (name === "" || name === null) {
@@ -58,15 +65,16 @@ var endQuiz = function () {
 
     // CHECK STOREAGE FOR HIGHSCORE//
     var highScore = localStorage.getItem("highScore");
-    console.log(localStorage.getItem("highScore"));
+    console.log(highScore);
 
     // player beeat highscore//
 
     if (score > highScore) {
-        localStorage.setItem(" highScore", score);
+        localStorage.setItem("highScore", score);
         localStorage.setItem("Name", name);
 
         alert(name + " now has the high score of " + score + "!");
+        document.getElementById("userHighScore").textContent = `Name :${name} Score:${score}`
     }
 
     else {
@@ -107,7 +115,7 @@ showResponse.addEventListener("click", function () {
     thiscontainerHTML.style.display = "block";
     timeObj = setInterval(() => {
         timerHTML.textContent = counter;
-        if (counter > 1) {
+        if (counter > 0) {
             counter--
         }
         else {
