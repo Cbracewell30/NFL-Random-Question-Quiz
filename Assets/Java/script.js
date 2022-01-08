@@ -1,30 +1,33 @@
-// global variables
+// global variable getting HTML Element by their ID
 var showResponse = document.getElementById('startbtn');
 var timerHTML = document.getElementById('timer');
 var scoreHTML = document.getElementById('score');
+var thiscontainerHTML = document.getElementById("quiz-container");
 var questionHTML = document.getElementById('quiz-questions');
 var button1HTML = document.getElementById('btn-1');
 var button2HTML = document.getElementById('btn-2');
 var button3HTML = document.getElementById('btn-3');
 var button4HTML = document.getElementById('btn-4');
-var thiscontainerHTML = document.getElementById("quiz-container")
-thiscontainerHTML.style.display = "none";
 var removestartHTML = document.getElementById("removestart");
 var correctwrongHTML = document.getElementById("correct-wrong");
+// Used to hide quiz elements on page load
+thiscontainerHTML.style.display = "none";
 
-
+// Adding onclick listener events to buttons
 button1HTML.addEventListener("click", showresult);
 button2HTML.addEventListener("click", showresult);
 button3HTML.addEventListener("click", showresult);
 button4HTML.addEventListener("click", showresult);
 
+// setting intial socre to 0
 var score = 0
 
+// getting highscore from local storage
 let scoreLocal = localStorage.getItem("highScore") || "None";
 let nameLocal = localStorage.getItem("Name")|| "Glad you decided to play";
 
 
-document.getElementById("userHighScore").textContent = `Name :${nameLocal} Score:${scoreLocal}`
+// document.getElementById("userHighScore").textContent = `Name :${nameLocal} Score:${scoreLocal}`
 
 
 // Answer result function
@@ -33,7 +36,7 @@ function showresult() {
     var results = [];
     if (useranswer == questionBank[questionList].answer) {
         correctwrongHTML.textContent = "Correct"
-        score += 5
+        score += 10
     }
     else {
         correctwrongHTML.textContent = "Wrong"
@@ -63,11 +66,11 @@ var endQuiz = function () {
         name = window.prompt("What is your name?");
     }
 
-    // CHECK STOREAGE FOR HIGHSCORE//
+    // CHECK STORAGE FOR HIGHSCORE//
     var highScore = localStorage.getItem("highScore");
     console.log(highScore);
 
-    // player beeat highscore//
+    // player beat highscore//
 
     if (score > highScore) {
         localStorage.setItem("highScore", score);
@@ -109,7 +112,7 @@ var timeObj;
 var counter = 25
 
 
-// On click function
+// On click function to start quiz
 showResponse.addEventListener("click", function () {
     removestartHTML.style.display = "none";
     thiscontainerHTML.style.display = "block";
